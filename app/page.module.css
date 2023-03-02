@@ -54,6 +54,10 @@
   transition: background 200ms, border 200ms;
 }
 
+.card:hover {
+  background-color: aqua;
+}
+
 .card span {
   display: inline-block;
   transition: transform 200ms;
@@ -269,3 +273,5 @@
     transform: rotate(0deg);
   }
 }
+
+

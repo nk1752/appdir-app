@@ -1,0 +1,43 @@
+.both {
+  display: flex;
+  flex-direction: row; 
+  
+  
+}
+.left {
+  background-color: white;
+  color: blue;
+  width: 10%;
+  height: 90vh;
+  text-align: center;
+  align-content: center; 
+}
+
+.right {
+  background-color: rgb(41, 74, 123);
+  color:white;
+  width: 90%;
+  height: 90vh;
+  text-align: center;
+  align-content: center; 
+}
+
+  
+.card {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  max-width: 220px;
+  
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
