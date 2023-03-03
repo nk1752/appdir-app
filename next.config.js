@@ -4,6 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   output: 'standalone',
+  //distDir: './dist'
   env: {
     nadeem: 'khalid'
   }

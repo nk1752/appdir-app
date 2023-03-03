@@ -85,7 +85,7 @@ function Signin() {
            
             
             
-            <form  onSubmit={handleConfirmSignIn}>
+            <form  className={styles.card} onSubmit={handleConfirmSignIn}>
                 
                 <label>MFA code: </label><br />
                 <input  type="text" value={code}  onChange={(e) => setCode(e.target.value)} /><br /><br />
