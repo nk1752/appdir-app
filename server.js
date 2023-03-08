@@ -4,7 +4,7 @@ const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
 const HOST = 'localhost'
-const PORT = 3000;
+const PORT = 3001;
 
 // App
 const app = next({ dev:false, conf})
