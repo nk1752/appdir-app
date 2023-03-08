@@ -1,13 +1,18 @@
 'use client'
 
+import styles from './styles.module.css'
+
 import { useState, useEffect } from 'react'
 
-function Data() {
+function DataHome() {
     const [data, setData] = useState('**')
+
+    const [list, setList] = useState([]) 
 
     async function GetStatus() {
 
-        fetch('http://localhost:8082/status', {
+       // useEffect( () => {
+        const response = await fetch('http://localhost:8082/status', {
             method: 'GET',
             mode: 'cors',
             headers: { 
@@ -16,10 +21,11 @@ function Data() {
                 //'Authorization': 'Bearer cognito-access-token'
             }
         }) 
-            
-        .then(res => res.json()) // the .json() method parses the JSON response into a JS object literal
-        .then(ned => console.log(ned))
-        ;   
+        
+        const textData = await response.text()
+        setData(textData)
+        
+       // })  
     }
 
     async function GetProtected() {
@@ -27,7 +33,7 @@ function Data() {
         const accessToken = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.' + currentUser + '.accessToken')
         console.log(accessToken)
 
-        fetch('http://localhost:8082/api', {
+        const response = await fetch('http://localhost:8082/api', {
             method: 'GET',
             mode: 'cors',
             headers: { 
@@ -36,38 +42,50 @@ function Data() {
                 'Authorization': 'Bearer ' + accessToken,
                 }
             })
-            .then(res => res.json()) // the .json() method parses the JSON response into a JS object literal
-            .then(ned => console.log(ned))
-
             
-            
+            const textData = await response.text()
+            setData(textData)                 
     }
+    
 
-    function GetCityData() {
+    async function GetCityData() {
         const item = 'Chicago';
         var url = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=46d3fedc2acd8b13f8fa9d7d6d1c6f9d"
 
-    fetch(url)
-        .then((response) => response.json())
-        .then((json) => console.log(json))
+        const response = await fetch(url)
+        const textResponse = await response.text() 
+        setData(textResponse) 
+        console.log(textResponse)
     
+    }
+
+    function handleTest() {
+        
+
     }
 
 
 
     return (
 
-        <div>
-        <button onClick={GetStatus}>get status</button>
-        <br />
-        <button onClick={GetProtected}>get protected</button>
-        <br />
-        <button onClick={GetCityData}>get city data</button>
-        <h1>{data}</h1>
+        <div >
+            <div >
+            
+                <button className={styles.buttonbar} onClick={GetStatus}>get status</button>
+            
+                <button className={styles.buttonbar} onClick={GetProtected}>get protected</button> 
+            
+                <button className={styles.buttonbar} onClick={GetCityData}>get city data</button>
+
+                <button className={styles.buttonbar} onClick={handleTest}>test</button>
+            </div>
+            
+            <p>{data}</p>
+            
       
-    </div>
+        </div>
 
     )
 }
 
-export default Data;
+export default DataHome;

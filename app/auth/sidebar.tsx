@@ -15,7 +15,7 @@ function Sidebar() {
                     </h2><br />  
                     <h2>        
                         <Link href="/auth/passwordreset">Password Reset</Link>
-                    </h2><br />            
+                    </h2><br />           
                 </ul>
             </div>       
         
