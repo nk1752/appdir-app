@@ -8,22 +8,25 @@ import config from '../../../cognito/cognito-config'
 
 Amplify.configure(config)
 
+function SignupHome() {
 
-function Signup() {
-
-    const [username, setUsername] = useState('user1008')
-    const [password, setPassword] = useState('User#1008')
+    const [username, setUsername] = useState('user1016')
+    const [password, setPassword] = useState('User#1016')
     const [email, setEmail] = useState('nadeemkhalid@outlook.com')
     const [phone_number, setPhoneNumber] = useState('+12053967637')
     const [code, setCode] = useState('')
     const [mfaType, setMfaType] = useState('SMS_MFA')
 
-    async function signUp() {
+    async function handleSignUp() {
 
-        console.log('called Sign Up...')
+        sessionStorage.setItem('nsername', username)
+        sessionStorage.setItem('password', password)
+        sessionStorage.setItem('email', email)
+        sessionStorage.setItem('phoneNumber', phone_number)
         
+
         try {
-            const { user } = await Auth.signUp({
+            const user = await Auth.signUp({
                 username,
                 password,
                 attributes: {
@@ -35,53 +38,47 @@ function Signup() {
                     enabled: false,
                 }
             });
+
             console.log(user);
+            
         } catch (error) {
             console.log('error signing up:', error);
-        }
+          }
+
+        
     }
 
-    async function confirmSignUp() {
+    async function handleConfirmSignUp() {
         try {
-          await Auth.confirmSignUp(username, code);
-        } catch (error) {
-            console.log('error confirming sign up', error);
-        }
-      }
+            await Auth.confirmSignUp(username, code);
+          } catch (error) {
+              console.log('error confirming sign up', error);
+            }
+        
+    }
 
     return (
-        <div className={styles.main}>
-            <form className={styles.card} onSubmit={signUp}>
-                <h1>Sign Up</h1><br />
+        <div className={styles.right}>
+            <form  className={styles.card} >
 
-                <label htmlFor="username">Username:</label><br />
-                <input type="text" id="username" name="username" /><br /><br />
-               
-                <label htmlFor="password">Password:</label><br />
-                <input type="password" id="password" name="password" /><br /><br />
-
-                <label htmlFor="phone">Phone Number:</label><br />
-                <input type="phone" id="phone" name="phone" /><br /><br />
-
-                <label htmlFor="email">Email:</label><br />
-                <input type="email" id="email" name="email" /><br /><br />
-                
-                <button type="submit">Submit</button>
-
-            </form><br />
-
-            <form className={styles.card} onSubmit={confirmSignUp}>
-                
-                <label>Email verification code: </label><br />
-                <input  type="text" value={code}  onChange={(e) => setCode(e.target.value)} /><br /><br />
-
-                <button type="submit">Verify</button>
-          
-            </form>    
+                <label>Username: <input  type="text" value={username}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
+                <label>Password: <input  type="text" value={password}  onChange={(e) => setPassword(e.target.value)} />  </label><br />
+                <label>Email: <input  type="text" value={email}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
+                <label>Phone Number: <input  type="text" value={phone_number}  onChange={(e) => setPassword(e.target.value)} />  </label><br />
+                <button type='button' onClick={ handleSignUp }>Sign Up</button><br />
+            
+            <label>Enter your code: <input  type="text" value={code}  onChange={(e) => setCode(e.target.value)} />  </label><br />
+            <button type='button' onClick={ handleConfirmSignUp }>Sign Up Code</button><br />
+            
+            
+            
+            
+            
+            </form>  
 
         </div>
 
     )
 }
 
-export default Signup;
+export default SignupHome;
