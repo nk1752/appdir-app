@@ -17,9 +17,9 @@ env:
   CLUSTER_NAME: cluster-dev
   CLUSTER_RESOURCE_GROUP: cluster-dev-rg
   RESOURCE_GROUP: cluster-dev-rg
-  CONTAINER_NAME: appdir-app
+  CONTAINER_NAME: appdir
   CONTAINER_TAG: v1
-  NAMESPACE: appdir-app-namespace
+  NAMESPACE: appdir-namespace
   ENV: dev
 
 
@@ -55,12 +55,12 @@ jobs:
   
     - name: root dir
       run: pwd
-
     - name: root dir list
       run: ls
 
 
     - name: build and push image to ACR
+      
       run: |
         az acr build \
         --image ${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }} \

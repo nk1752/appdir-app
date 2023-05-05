@@ -19,7 +19,7 @@ env:
   RESOURCE_GROUP: cluster-dev-rg
   CONTAINER_NAME: appdir
   CONTAINER_TAG: v1
-  NAMESPACE: appdir-app-namespace
+  NAMESPACE: appdir-namespace
   ENV: dev
 
 
@@ -43,20 +43,7 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v3
 
-    - name: Set up Node 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: npm
-
-    - run: npm ci
-    - run: npm run build --if-present
-    # - run: npm test
-  
-    - name: root dir
-      run: pwd
-    - name: root dir list
-      run: ls
+    # NO NODE SETUP
 
 
     - name: build and push image to ACR
