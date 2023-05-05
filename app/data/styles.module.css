@@ -8,16 +8,29 @@
   background-color: white;
   color: blue;
   width: 10%;
-  height: 90vh;
+  height: 100vh;
   text-align: center;
   align-content: center; 
 }
 
 .right {
+  
   background-color: rgb(41, 74, 123);
   color:white;
   width: 90%;
-  height: 90vh;
+  
+  text-align: center;
+  align-content: center; 
+}
+
+.right_name {
+
+  display: flex;
+  
+  background-color: rgb(200, 202, 205);
+  color:white;
+  width: 90%;
+  
   text-align: center;
   align-content: center; 
 }

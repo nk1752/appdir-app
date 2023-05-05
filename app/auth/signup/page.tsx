@@ -58,25 +58,23 @@ function SignupHome() {
     }
 
     return (
-        <div className={styles.right}>
+        <section className={styles.right}>
+            
             <form  className={styles.card} >
-
+                <h2>SIGN UP FORM</h2><br />
                 <label>Username: <input  type="text" value={username}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
-                <label>Password: <input  type="text" value={password}  onChange={(e) => setPassword(e.target.value)} />  </label><br />
-                <label>Email: <input  type="text" value={email}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
-                <label>Phone Number: <input  type="text" value={phone_number}  onChange={(e) => setPassword(e.target.value)} />  </label><br />
-                <button type='button' onClick={ handleSignUp }>Sign Up</button><br />
+                <label>Password: <input  type="password" value={password}  onChange={(e) => setPassword(e.target.value)} />  </label><br />
+                <label>Email: <input  type="email" value={email}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
+                <label>Phone Number: <input  type="text" value={phone_number}  onChange={(e) => setPassword(e.target.value)} />  </label><br /><br />
+                <button type='button' onClick={ handleSignUp }>Sign Up</button><br /><br /><br />
             
-            <label>Enter your code: <input  type="text" value={code}  onChange={(e) => setCode(e.target.value)} />  </label><br />
-            <button type='button' onClick={ handleConfirmSignUp }>Sign Up Code</button><br />
-            
-            
-            
+                <label>MFA email code: <input  type="text" value={code}  onChange={(e) => setCode(e.target.value)} />  </label><br /><br />
+                <button type='button' onClick={ handleConfirmSignUp }>Verify</button><br />
             
             
             </form>  
 
-        </div>
+        </section>
 
     )
 }

@@ -8,17 +8,6 @@ import config from '../../../cognito/cognito-config';
 
 Amplify.configure(config)
 
-export async function signOut() {
-    try {
-        await Auth.signOut();
-        console.log('signing out...')
-    }   catch (error) {
-            console.log('error signing out: ', error);
-        }
-}
-
-
-
 function SigninHome() {
 
     const [code, setCode] = useState('')
@@ -51,6 +40,8 @@ function SigninHome() {
                 console.log(loggedUser)
       
                 const JwtToken = loggedUser.getSignInUserSession()?.getAccessToken()?.getJwtToken() || '';    
+
+                alert("Logged In")
           
             }   catch (error) {
                     console.log('error signing in', error);
@@ -62,6 +53,7 @@ function SigninHome() {
         <div className={styles.right} > 
             <form  className={styles.card} >
                 
+                <h2>SIGN IN</h2><br />
                 <label>Username: <input  type="text" value={username}  onChange={(e) => setUsername(e.target.value)} />  </label><br />
                 <label>Password: <input  type="text" value={password}  onChange={(e) => setPassword(e.target.value)} />  </label><br /><br />
                 <button type='button' onClick={ handleSignIn }>Sign In</button><br /><br /><br />

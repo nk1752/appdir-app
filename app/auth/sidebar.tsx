@@ -1,21 +1,21 @@
 'use client'
 
 import Link from 'next/link';
-
 import styles from './styles.module.css'
 
-import { signOut } from './signin/page';
+import { SignOut } from '../../cognito/auth';
 
 function handleSignOut() {
 
-    signOut()
+    SignOut()
+    alert('signing out...')
 
 }
 
 function Sidebar() {
     return (
        
-            <div className={styles.left}>
+            <section className={styles.left}>
                 <ul><br />
                     <h2>                
                         <Link href="/auth/signin">Sign In</Link>
@@ -30,7 +30,7 @@ function Sidebar() {
                         <button onClick={handleSignOut}>Sign Out</button>
                     </h2><br />         
                 </ul>
-            </div>       
+            </section>       
         
     )
 }

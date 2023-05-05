@@ -1,18 +1,18 @@
 'use client'
 import Link from 'next/link';
 
-import styles from './styles.module.css'
+import styles from '../styles.module.css'
 
-function AuthHome() {
+function FieldHome() {
 
 
   return (
         <div className={styles.right}>
 
-            <h1>Auth Home</h1>
+            <h1>Field Home</h1>
 
         </div>
     )
 }
 
-export default AuthHome;
+export default FieldHome;

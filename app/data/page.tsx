@@ -4,66 +4,175 @@ import styles from './styles.module.css'
 
 import { useState, useEffect } from 'react'
 
-function DataHome() {
-    const [data, setData] = useState('**')
+import { getStatus, getURL } from '../items/route'
+import { Console } from 'console'
 
+
+function DataHome() {
+    
+    const [data, setData] = useState('**')
     const [list, setList] = useState([]) 
 
-    async function GetStatus() {
+    async function handleGetStatus() {
 
-       // useEffect( () => {
-        const response = await fetch('http://localhost:8082/status', {
-            method: 'GET',
-            mode: 'cors',
-            headers: { 
-                'Content-Type': 'application/json',
-                //'Content-Type': 'text/plain',
-                //'Authorization': 'Bearer cognito-access-token'
-            }
-        }) 
+        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/health"
+        console.log(url)
         
-        const textData = await response.text()
-        setData(textData)
-        
-       // })  
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json',
+            
+                    }
+                });
+
+                setData(await response.text())
+                console.log(response)
+
+        } catch (error) {
+            console.error("error =>", error)
+            setData("*** error ***")
+        }       
     }
 
     async function GetProtected() {
         const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.LastAuthUser')
         const accessToken = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.' + currentUser + '.accessToken')
-        console.log(accessToken)
+        
+        //console.log(accessToken)
 
-        const response = await fetch('http://localhost:8082/api', {
-            method: 'GET',
-            mode: 'cors',
-            headers: { 
-                'Content-Type': 'application/json',
-                //'Content-Type': 'text/plain',
-                'Authorization': 'Bearer ' + accessToken,
-                }
-            })
-            
-            const textData = await response.text()
-            setData(textData)                 
+        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/api"
+        console.log(url)
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    //'Content-Type': 'text/plain',
+                    //'Authorization': 'Bearer ' + accessToken,
+                    }
+                });
+
+                setData(await response.text())
+                console.log(response)
+
+        } catch (error) {
+            console.error("error =>", error)
+            setData("*** error ***")
+        }       
     }
-    
 
     async function GetCityData() {
-        const item = 'Chicago';
-        var url = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=46d3fedc2acd8b13f8fa9d7d6d1c6f9d"
+        const city = 'London';
+        //var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=46d3fedc2acd8b13f8fa9d7d6d1c6f9d"
+        
+        const url = "http://api.weatherapi.com/v1/current.json?key=ef50495ff7bd48708b0142219232003&q=" + city + "&aqi=yes"
+        console.log(url)
 
-        const response = await fetch(url)
-        const textResponse = await response.text() 
-        setData(textResponse) 
-        console.log(textResponse)
-    
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    //'Content-Type': 'text/plain',
+                    
+                    }
+                });
+
+                // parses JSON response into native JavaScript objects
+                const obj = await response.json();
+                console.log(await obj)
+                const data = JSON.stringify(obj.location.name) + JSON.stringify(obj.location.country)
+                setData(data)
+
+        } catch (error) {
+            console.error(error)
+
+        }
     }
 
     function handleTest() {
-        
 
+        
+        console.log(process.env.NODE_ENV)
+        console.log(process.env.NEXT_PUBLIC_URL)
+        console.log(process.env.NEXT_PUBLIC_MESSAGE)
+        console.log(process.env.NEXT_PUBLIC_API_SERVER_URL)
+           
     }
 
+    async function GetCustomers() {
+        const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.LastAuthUser')
+        const accessToken = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.' + currentUser + '.accessToken')
+        console.log(accessToken)
+
+        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/customers"
+        console.log(url)
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    //'Authorization': 'Bearer ' + accessToken,
+            
+                    }
+                });
+
+                setData(await response.text())
+                console.log(response)
+
+        } catch (error) {
+            console.error("error =>", error)
+            setData("*** error ***")
+        }   
+    }
+
+    async function getUserById() {
+
+        const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.LastAuthUser')
+        const accessToken = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.' + currentUser + '.accessToken')
+        console.log(accessToken)
+
+        //const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/user"
+        const params = {
+            id: 1
+        }
+
+        const url = "http://localhost:8080/user?lastName=last_name_2"
+        console.log(url)
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    //'Authorization': 'Bearer ' + accessToken,
+            
+                    }
+                });
+
+                // parses JSON response into native JavaScript objects
+                const obj = await response.json();
+                //console.log(await obj)
+                const data = JSON.stringify(obj, null, 2)
+                console.log(data)
+                setData(data)
+
+                
+
+        } catch (error) {
+            console.error("error =>", error)
+            setData("*** error ***")
+        }   
+    }
 
 
     return (
@@ -71,20 +180,19 @@ function DataHome() {
         <div >
             <div >
             
-                <button className={styles.buttonbar} onClick={GetStatus}>get status</button>
-            
-                <button className={styles.buttonbar} onClick={GetProtected}>get protected</button> 
-            
+                <button className={styles.buttonbar} onClick={handleGetStatus}>get status</button>
                 <button className={styles.buttonbar} onClick={GetCityData}>get city data</button>
 
-                <button className={styles.buttonbar} onClick={handleTest}>test</button>
+                
             </div>
             
-            <p>{data}</p>
+            <ul>
+                
+                <li>{data}</li>
+                
+            </ul>
             
-      
         </div>
-
     )
 }
 

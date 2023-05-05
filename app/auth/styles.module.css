@@ -1,28 +1,31 @@
 .both {
   display: flex;
   flex-direction: row; 
-  
-  
 }
+
 .left {
   background-color: white;
   color: blue;
   width: 10%;
-  height: 90vh;
+  min-height: 100vh;
   text-align: center;
   align-content: center; 
 }
 
 .right {
-  
-  color:white;
-  width: 90%;
-  height: 100vh;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
   align-items: center; 
   align-content: center;
+  color:white;
+  width: 90%;
 }
 
+.title {
+  position: relative;
+  left: 40%;
+  top: 10%; 
+}
   
 .card {
   margin: 1rem;
@@ -32,15 +35,12 @@
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  max-width: 220px;
-
-  position: relative;
-  
-  left: 40%;
-  
-  
+  max-width: 250px;
 }
 
+.card h2 {
+  color: #0070f3;
+}
 .card:hover,
 .card:focus,
 .card:active {
