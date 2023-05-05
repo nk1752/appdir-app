@@ -1,9 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
+
 metadata:
-  name: restapi-ingress
+  name: appdir-ingress
   labels:
-    name: restapi-ingress
+    name: appdir-ingress
   namespace: appdir-namespace
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
@@ -13,6 +14,7 @@ metadata:
     appgw.ingress.kubernetes.io/health-probe-initial-delay: "10s"
     appgw.ingress.kubernetes.io/health-probe-protocol: "HTTP"
     appgw.ingress.kubernetes.io/health-probe-port: "3000"
+
 spec:
   rules:
   - host: pocvivahealth.com
