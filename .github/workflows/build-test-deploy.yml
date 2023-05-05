@@ -59,9 +59,6 @@ jobs:
     - name: root dir list
       run: ls
 
-    - name: target dir
-      run: cd target && ls
-
 
     - name: build and push image to ACR
       run: |
