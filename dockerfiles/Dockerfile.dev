@@ -1,14 +1,17 @@
 FROM node:18-alpine AS builder
 
+RUN pwd
+RUN ls
+
 # Set the working directory to /app inside the container
 WORKDIR /app
 ENV DEPLOY_ENV=prod
 
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
 # Copy app files
-COPY . .
+COPY ./ ./
 # install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 # Build the app
