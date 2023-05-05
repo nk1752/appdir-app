@@ -1,0 +1,135 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: build test and deploy
+
+on:
+  workflow_dispatch:
+
+env:
+  ACR_RESOURCE_GROUP: cluster-dev-rg
+  AZURE_CONTAINER_REGISTRY: vhacr1
+  CLUSTER_NAME: cluster-dev
+  CLUSTER_RESOURCE_GROUP: cluster-dev-rg
+  RESOURCE_GROUP: cluster-dev-rg
+  CONTAINER_NAME: rest-api-server
+  CONTAINER_TAG: v1
+  NAMESPACE: rest-api-namespace
+  DEPLOYMENT_MANIFEST_PATH: manifest
+  ENV: dev
+
+
+jobs:
+
+  build_push_image:
+    runs-on: ubuntu-latest
+
+    permissions:
+            contents: read
+            id-token: write
+
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1.4.6
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }} 
+    
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean install -f pom.xml -DskipTests
+      # run: mvn -B package --file pom.xml -DskipTests
+  
+    - name: root dir
+      run: pwd
+
+    - name: root dir list
+      run: ls
+
+    - name: target dir
+      run: cd target && ls
+
+
+    - name: build and push image to ACR
+      run: |
+        az acr build \
+        --image ${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }} \
+        --registry ${{ env.AZURE_CONTAINER_REGISTRY }} \
+        --build-arg JAR_FILE=./target/${{ env.CONTAINER_NAME }}-0.0.1.jar \
+        --build-arg ENV=${{ env.ENV }} \
+        -g ${{ env.ACR_RESOURCE_GROUP }} \
+        -f ./dockerfiles/Dockerfile.dev .
+
+
+  deploy_manifest:
+    runs-on: ubuntu-latest
+
+    permissions:
+            contents: read
+            id-token: write
+            actions: read
+
+    needs: [build_push_image]
+
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1.4.6
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }} 
+
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: Set up kubelogin for non-interactive login
+      uses: azure/use-kubelogin@v1
+      with:
+        kubelogin-version: 'v0.0.25'
+        skip-cache: 'true'
+
+      # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
+    - name: Get K8s context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ env.RESOURCE_GROUP }}
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        admin: 'false'
+        use-kubelogin: 'true'
+
+        # Use kubelogin to configure your kubeconfig for Azure auth
+    
+
+      # Deploys application based on given manifest file
+    - name: Deploys application
+      uses: Azure/k8s-deploy@v4
+      with:
+        resource-group: ${{ env.RESOURCE_GROUP }}
+        namespace: ${{ env.NAMESPACE }}
+        action: deploy
+        strategy: basic
+        manifests: |
+          manifests/api-deployment.yml
+          manifests/api-service.yml
+          manifests/api-ingress.yml
+          
+        images: |
+          ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
+
+  
+        
+          
+
+
