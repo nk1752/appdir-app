@@ -1,0 +1,29 @@
+az aks get-credentials -n MyManagedCluster -g MyResourceGroup
+
+alias k=kubectl
+alias kg='kubectl get'
+alias kgpo='kubectl get pod'
+
+kubectl apply -f ./my-manifest.yaml            # create resource(s)
+kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
+
+kubectl config view # Show Merged kubeconfig settings.
+
+
+https://phoenixnap.com/kb/kubectl-commands-cheat-sheet
+kubectl get namespaces
+kubectl get pods
+kubectl get pods -o wide
+kubectl get pods --show-labels
+kubectl get pods --field-selector=spec.nodeName=[server-name]
+kubectl get daemonset
+
+kubectl describe svc apiserver-service
+kubectl get service -A
+
+
+
+
+
+
+128 Mi = 1.07 Gigabit

@@ -13,11 +13,11 @@ spec:
   template:
     metadata:
       labels:
-        app: restapiserver
+        app: appdir
     spec:
       containers:
-      - name: restapiserver
-        image: vhacr1.azurecr.io/appdir-app-server:v1
+      - name: appdir
+        image: vhacr1.azurecr.io/appdir:v1
         resources:
           requests:
             memory: "128Mi"
@@ -26,5 +26,5 @@ spec:
               memory: "256Mi"
               cpu: "1000m"
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
           
