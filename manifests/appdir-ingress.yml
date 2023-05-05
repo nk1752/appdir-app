@@ -20,8 +20,8 @@ spec:
   - host: pocvivahealth.com
     http:
       paths:
-      - pathType: Exact
-        path: "/status"
+      - pathType: Prefix
+        path: "/"
         backend:
           service:
             name: appdir-service
