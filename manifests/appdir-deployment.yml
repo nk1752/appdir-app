@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appdir-deployment
+  namespace: appdir-namespace
+  labels:
+    app: appdir
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appdir
+  template:
+    metadata:
+      labels:
+        app: restapiserver
+    spec:
+      containers:
+      - name: restapiserver
+        image: vhacr1.azurecr.io/appdir-app-server:v1
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+              memory: "256Mi"
+              cpu: "1000m"
+        ports:
+        - containerPort: 8080
+          
