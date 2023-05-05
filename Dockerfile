@@ -4,6 +4,7 @@ WORKDIR /app
 ENV DEPLOY_ENV=prod
 COPY package*.json .
 RUN npm install
+
 # Copy app files
 COPY . .
 # install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
@@ -13,9 +14,8 @@ RUN npm run build
 
 FROM node:18-alpine AS production
 
-#RUN addgroup -g 1001 viva && adduser -u 1001 -G viva -D viva
-RUN addgroup -g 1001 -S viva && adduser -u 1001 -S viva -G viva
-USER viva
+RUN addgroup -S viva && adduser -S devops -G viva
+USER devops
 
 WORKDIR /app
 
