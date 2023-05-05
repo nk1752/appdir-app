@@ -121,9 +121,9 @@ jobs:
         action: deploy
         strategy: basic
         manifests: |
-          manifests/api-deployment.yml
-          manifests/api-service.yml
-          manifests/api-ingress.yml
+          manifests/appdir-deployment.yml
+          manifests/appdir-service.yml
+          manifests/appdir-ingress.yml
           
         images: |
           ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
