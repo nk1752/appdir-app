@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: appdir
-        image: vhacr1.azurecr.io/appdir:v1
+        image: vhacr1.azurecr.io/appdir:latest
         resources:
           requests:
             memory: "128Mi"

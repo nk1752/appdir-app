@@ -18,7 +18,7 @@ env:
   CLUSTER_RESOURCE_GROUP: cluster-dev-rg
   RESOURCE_GROUP: cluster-dev-rg
   CONTAINER_NAME: appdir
-  CONTAINER_TAG: v1
+  CONTAINER_TAG: latest
   NAMESPACE: appdir-namespace
   ENV: dev
 
@@ -42,6 +42,11 @@ jobs:
     
     - name: checkout repo
       uses: actions/checkout@v3
+
+    - name: "******root dir*******"
+      run: pwd
+    - name: root dir list
+      run: ls
 
     # NO NODE SETUP
 
