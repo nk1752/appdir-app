@@ -18,19 +18,28 @@ env:
   CLUSTER_RESOURCE_GROUP: cluster-dev-rg
   RESOURCE_GROUP: cluster-dev-rg
   CONTAINER_NAME: appdir
-  CONTAINER_TAG: 0.0.1
+  CONTAINER_TAG: ${{ github.sha }}
   NAMESPACE: appdir-namespace
   ENV: dev
 
 
 jobs:
 
-  build_push_image:
+  github_variables:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: github.sha
+        run: echo ${{ github.sha }}
+
+  build_push_image:
+    runs-on: ubuntu-latest 
 
     permissions:
             contents: read
             id-token: write
+
+    needs: [github_variables]
 
     steps:
     - name: Azure Login
@@ -116,6 +125,11 @@ jobs:
           
         images: |
           ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
+
+    - name: update image tag
+      run: |
+        kubectl get pods -A
+        kubectl set image deployment/appdir-deployment appdir=${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
 
   
         
