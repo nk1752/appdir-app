@@ -129,7 +129,7 @@ jobs:
     - name: update image tag
       run: |
         kubectl get pods -A
-        kubectl set image deployment/appdir-deployment appdir=${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
+        
 
   
         

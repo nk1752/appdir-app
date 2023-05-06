@@ -11,7 +11,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.card}>
 
-        <h1>Hello image tag: latest</h1>
+        <h1>Hello image tag: github.sha</h1>
       
       
       </div>
