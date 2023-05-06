@@ -18,7 +18,7 @@ env:
   CLUSTER_RESOURCE_GROUP: cluster-dev-rg
   RESOURCE_GROUP: cluster-dev-rg
   CONTAINER_NAME: appdir
-  CONTAINER_TAG: latest
+  CONTAINER_TAG: 0.0.1
   NAMESPACE: appdir-namespace
   ENV: dev
 

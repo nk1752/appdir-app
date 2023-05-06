@@ -22,6 +22,7 @@ FROM node:18-alpine
 RUN addgroup -S viva && adduser -S devops -G viva
 USER devops
 
+RUN echo after user setup
 RUN pwd
 RUN ls
 
