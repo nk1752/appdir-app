@@ -31,6 +31,12 @@ jobs:
     steps:
       - name: github.sha
         run: echo ${{ github.sha }}
+      - name: github.env
+        run: echo ${{ github.env }}
+      - name: github.GITHUB_ACTOR
+        run: echo ${{ github.GITHUB_ACTOR }}
+      - name: github.GITHUB_RUN_NUMBER
+        run: echo ${{ github.GITHUB_RUN_NUMBER }}
 
   build_push_image:
     runs-on: ubuntu-latest 
