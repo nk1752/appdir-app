@@ -34,11 +34,9 @@ COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
-ARG NODE_ENV
+ARG ENV
 # Set envirnoment
-ENV NODE_ENV=${NODE_ENV}
-
-RUN echo ${NODE_ENV}
+ENV NODE_ENV=${ENV}
 
 # Expose the port on which the app will be running
 EXPOSE 3000
