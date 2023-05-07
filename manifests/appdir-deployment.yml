@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appdir-deployment
-  namespace: appdir-namespace
+  namespace: poc-namespace
   labels:
     app: appdir
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: appdir
-        image: vhacr1.azurecr.io/appdir:0.0.1
+        image: vhacr1.azurecr.io/appdir:latest
         resources:
           requests:
             memory: "128Mi"

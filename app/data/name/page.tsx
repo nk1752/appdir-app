@@ -15,7 +15,7 @@ function IdHome() {
 
         const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.LastAuthUser')
         const accessToken = localStorage.getItem('CognitoIdentityServiceProvider.52bqtlnmjv9dvslkip0kkpoco2.' + currentUser + '.accessToken')
-        console.log(accessToken)
+        //console.log(accessToken)
 
         //const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/user"
         const params = {
