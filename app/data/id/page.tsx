@@ -8,6 +8,7 @@ function IdHome() {
 
     const [data, setData] = useState('**')
     const [id, setId] = useState('1')
+    const [service, setService] = useState('')
 
     async function getUserById() {
 
@@ -20,8 +21,12 @@ function IdHome() {
             id: 1
         }
 
-        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/api/user?id=" + id
+        let url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/api/user?id=" + id;
         console.log(url)
+
+        url = service + "/api/user?id=" + id;
+
+         console.log(url)
 
         try {
             const response = await fetch(url, {
@@ -61,6 +66,8 @@ function IdHome() {
                 <button type='button' onClick={ getUserById }>Submit</button><br /><br /><br />
   
             </form>
+
+            <label>service: <input  type="number" value={service}  onChange={(e) => setService(e.target.value)} />  </label><br />
 
             <p>{data}</p>
 
