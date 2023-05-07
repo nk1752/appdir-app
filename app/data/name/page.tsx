@@ -20,9 +20,16 @@ function IdHome() {
         const params = {
             id: 1
         }
+        let url = ''
+        if (process.env.PLATFORN == 'aks') {
+            url = 'appdir-service.svc.cluster.local' + "/api/user?lastName=" + lastName;
+        }
+        else {
+            url = 'http://localhost:8080' + "/api/user?lastName=" + lastName;   
+        }
 
-        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/api/user?lastName=" + lastName
-        console.log(url)
+         url = '10.0.190.124:8080' + "/api/user?lastName=" + lastName;
+         console.log(url)
 
         try {
             const response = await fetch(url, {

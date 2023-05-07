@@ -11,7 +11,8 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.card}>
 
-        <h1>The process.env.NEXT_PUBLIC_API_SERVER_URL is: {process.env.NODE_ENV}</h1>
+        <h1>The process.env.ENV is: {process.env.ENV}</h1>
+        <h1>The process.env.PLATFORM is: {process.env.PLATFORM}</h1>
       
       
       </div>

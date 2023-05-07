@@ -5,17 +5,16 @@ RUN ls
 
 # Set the working directory to /app inside the container
 WORKDIR /app
-ENV DEPLOY_ENV=prod
 
 COPY package*.json ./
-RUN npm install
-
-# Copy app files
-COPY ./ ./
-# install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+# install dependencies - npm ci makes sure the exact versions in the lockfile gets installed
 RUN npm ci
 # Build the app
 RUN npm run build
+
+# Copy app files
+COPY ./ ./
+
 
 FROM node:18-alpine
 
@@ -34,11 +33,13 @@ COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
-ARG NODE_ENV
-# Set envirnoment
-ENV NODE_ENV=${NODE_ENV}
+ARG ENV
+ARG PLATFORM
 
-RUN echo ${NODE_ENV}
+# Set envirnoment var
+ENV ENV=${ENV}
+ENV ENV=${PLATFORM}
+
 
 # Expose the port on which the app will be running
 EXPOSE 3000

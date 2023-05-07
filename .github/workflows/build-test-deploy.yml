@@ -20,7 +20,8 @@ env:
   CONTAINER_NAME: appdir
   CONTAINER_TAG: ${{ github.sha }}
   NAMESPACE: appdir-namespace
-  NODE_ENV: production
+  ENV: production
+  PLATFORM: aks
 
 
 jobs:
@@ -71,7 +72,8 @@ jobs:
         az acr build \
         --image ${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }} \
         --registry ${{ env.AZURE_CONTAINER_REGISTRY }} \
-        --build-arg NODE_ENV=${{ env.ENV }} \
+        --build-arg ENV=${{ env.ENV }} \
+        --build-arg PLATFORM=${{ env.PLATFORM }} \
         -g ${{ env.ACR_RESOURCE_GROUP }} \
         -f ./dockerfiles/Dockerfile.dev .
 
