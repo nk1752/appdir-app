@@ -67,7 +67,7 @@ function IdHome() {
   
             </form>
 
-            <label>service: <input  type="number" value={service}  onChange={(e) => setService(e.target.value)} />  </label><br />
+            <label>service: <input  type="text" value={service}  onChange={(e) => setService(e.target.value)} />  </label><br />
 
             <p>{data}</p>
 
