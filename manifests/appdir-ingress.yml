@@ -5,7 +5,7 @@ metadata:
   name: appdir-ingress
   labels:
     name: appdir-ingress
-  namespace: poc-namespace
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/health-probe-path: /

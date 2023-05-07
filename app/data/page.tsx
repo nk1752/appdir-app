@@ -15,7 +15,7 @@ function DataHome() {
 
     async function handleGetStatus() {
 
-        const url = process.env.NEXT_PUBLIC_API_SERVER_URL + "/health"
+        const url = "http://rest-service" + "/health"
         console.log(url)
         
         try {

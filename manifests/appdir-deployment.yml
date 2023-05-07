@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appdir-deployment
-  namespace: poc-namespace
+  namespace: default
   labels:
     app: appdir
 spec:
