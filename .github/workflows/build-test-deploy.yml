@@ -19,7 +19,7 @@ env:
   RESOURCE_GROUP: cluster-dev-rg
   CONTAINER_NAME: appdir
   CONTAINER_TAG: ${{ github.sha }}
-  NAMESPACE: poc-namespace
+  NAMESPACE: default
   NODE_ENV: production
   PLATFORM: aks
   API_SERVICE: rest-service
