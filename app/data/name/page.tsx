@@ -28,7 +28,7 @@ function IdHome() {
             url = 'http://localhost:8080' + "/api/user?lastName=" + lastName;   
         }
 
-         url = 'restapiserver-service.rest-api-namespace.svc.cluster.local:8080' + "/api/user?lastName=" + lastName;
+         url = 'http://restapiserver-service.rest-api-namespace.svc.cluster.local:8080' + "/api/user?lastName=" + lastName;
          console.log(url)
 
         try {

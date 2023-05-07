@@ -34,12 +34,14 @@ COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
-ARG ENV
+ARG NODE_ENV
 ARG PLATFORM
+ARG API_SERVICE
 
 # Set envirnoment var
-ENV ENV=${ENV}
-ENV ENV=${PLATFORM}
+ENV NODE_ENV=${NODE_ENV}
+ENV PLATFORM=${PLATFORM}
+ENV API_SERVICE=${API_SERVICE}
 
 
 # Expose the port on which the app will be running
