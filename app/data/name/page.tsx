@@ -9,6 +9,7 @@ function IdHome() {
     const [data, setData] = useState('**')
     const [lastName, setLastName] = useState('')
     const [firstName, setFirstName] = useState('')
+    const [service, setService] = useState('')
 
     async function getUserByLastName() {
 
@@ -29,7 +30,7 @@ function IdHome() {
         }
 
          //url = 'http://restapiserver-service.rest-api-namespace.svc.cluster.local:8080' + "/api/user?lastName=" + lastName;
-         url = 'http://10.224.0.116:8080' + "/api/user?lastName=" + lastName;
+         url = service + "/api/user?lastName=" + lastName;
 
          console.log(url)
 
@@ -169,6 +170,7 @@ function IdHome() {
                 </form>
             </div>
 
+            <label>service: <input  type="text" value={service} required onChange={(e) => setService(e.target.value)} />  </label><br />
             <p>{data}</p>
 
         </div>    
