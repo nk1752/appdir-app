@@ -22,7 +22,7 @@ env:
   NAMESPACE: appdir-namespace
   NODE_ENV: production
   PLATFORM: aks
-  API_SERVICE: 'this is a test'
+  API_SERVICE: restapiserver
 
 
 jobs:
