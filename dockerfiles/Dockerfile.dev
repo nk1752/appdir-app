@@ -7,13 +7,14 @@ RUN ls
 WORKDIR /app
 
 COPY package*.json ./
-# install dependencies - npm ci makes sure the exact versions in the lockfile gets installed
-RUN npm ci
-# Build the app
-RUN npm run build
+RUN npm install
 
 # Copy app files
 COPY ./ ./
+# install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+RUN npm ci
+# Build the app
+RUN npm run build
 
 
 FROM node:18-alpine
