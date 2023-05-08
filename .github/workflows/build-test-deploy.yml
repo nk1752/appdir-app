@@ -12,14 +12,14 @@ on:
   workflow_dispatch:
 
 env:
-  ACR_RESOURCE_GROUP: cluster-dev-rg
-  AZURE_CONTAINER_REGISTRY: vhacr1
-  CLUSTER_NAME: cluster-dev
-  CLUSTER_RESOURCE_GROUP: cluster-dev-rg
-  RESOURCE_GROUP: cluster-dev-rg
+  ACR_RESOURCE_GROUP: cluster-poc-rg
+  AZURE_CONTAINER_REGISTRY: vhacr2
+  CLUSTER_NAME: cluster-poc
+  CLUSTER_RESOURCE_GROUP: cluster-poc-rg
+  RESOURCE_GROUP: cluster-poc-rg
   CONTAINER_NAME: appdir
   CONTAINER_TAG: ${{ github.sha }}
-  NAMESPACE: default
+  NAMESPACE: poc
   NODE_ENV: production
   PLATFORM: aks
   API_SERVICE: rest-service
